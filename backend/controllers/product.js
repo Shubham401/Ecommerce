@@ -225,7 +225,7 @@ exports.listBySearch = (req, res) => {
         }
     }
 
-    Product.find(findArgs)
+    Product.find(findArgs) 
         .select("-photo")
         .populate("category")
         .sort([[sortBy, order]])
