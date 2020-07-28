@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const expressValidator = require('express-validator');
 require('dotenv').config();
 
@@ -29,6 +30,7 @@ app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
 app.use(expressValidator());
+app.use(cors());
 
 //routesMiddleware
 app.use('/api', authRoutes);
