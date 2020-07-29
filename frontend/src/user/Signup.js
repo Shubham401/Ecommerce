@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Layout from '../core/Layout';
+import { API } from '../config';
 
 const Signup = () => {
     const [values, setValues] = useState({
@@ -8,10 +9,36 @@ const Signup = () => {
         password: '',
         error: '',
         success: false
-    })
+    });
+
+    //destruct
+    const {name, email, password} = values;
 
     const handleChange = name => event => {
-        setValues({...values, error: false, [name]: event.target.value})
+        setValues({...values, error: false, [name]: event.target.value}); //name includes all the values
+    };
+
+    const signup = (user) => {
+        //console.log(name, email, password);
+        fetch(`${API}/signup`, {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
+
+    const clickSubmit = (event) => {               //grab the event
+        event.preventDefault();                     //browser will not reload when button clicked
+        signup({ name, email, password });
     }
 
     const signUpForm = () => (
@@ -28,7 +55,7 @@ const Signup = () => {
                 <label className="text-muted">Password</label>
                 <input onChange={handleChange('password')} type="password" className="form-control" />
             </div>
-            <button className="btn btn-primary">Submit</button>
+            <button onClick={clickSubmit} className="btn btn-primary">Submit</button>
         </form>
     )
     return (
