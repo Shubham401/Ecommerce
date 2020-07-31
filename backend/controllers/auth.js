@@ -10,7 +10,8 @@ exports.signup = (req, res) => {
     user.save((err, user) => {
         if(err) {
             return res.status(400).json({
-                err: errorHandler(err)
+                //error: errorHandler(err)
+                error: 'Email is taken'
             });
         }
         user.salt = undefined;
