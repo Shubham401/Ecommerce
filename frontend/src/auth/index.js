@@ -60,6 +60,7 @@ export const signout = (next) => {
     }
 };
 
+//Show & hide signin signout links conditionally
 export const isAuthenticated = () => {
     if (typeof window == 'undefined') {
         return false;
